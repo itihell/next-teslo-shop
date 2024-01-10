@@ -1,4 +1,5 @@
 "use client";
+import { useUiStore } from "@/store";
 import Link from "next/link";
 import {
   IoCloseOutline,
@@ -12,6 +13,9 @@ import {
 } from "react-icons/io5";
 
 export const SideBar = () => {
+  const isSideMenuOpen = useUiStore((state) => state.isSideMenuOpen);
+  const closeMenu = useUiStore((state) => state.closeSideMenu);
+
   return (
     <div>
       {/* Background */}
@@ -46,7 +50,7 @@ export const SideBar = () => {
         >
           <IoPersonOutline size={30} />
           <span className="ml-3 text-xl">Perfil</span>
-        </Link> 
+        </Link>
         <Link
           href="/"
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
@@ -60,7 +64,7 @@ export const SideBar = () => {
         >
           <IoLogInOutline size={30} />
           <span className="ml-3 text-xl">Ingresar</span>
-        </Link> 
+        </Link>
         <Link
           href="/"
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
