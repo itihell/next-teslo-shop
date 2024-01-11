@@ -16,7 +16,7 @@ export default function ProductoPage({ params }: Props) {
     notFound();
   }
   return (
-    <div className="mt-5 mb-20 grid md:grid-cols-3 gap-3">
+    <div className="mt-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-3">
       {/* SlideShow */}
       <div className="col-span-1 md:col-span-2 ">
         <SlideShow title={product.title} images={product.images} />
