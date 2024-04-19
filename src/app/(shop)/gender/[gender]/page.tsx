@@ -31,9 +31,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     });
 
   if (products.length === 0) return redirect(`/gender/${gender}`);
-  // if (id === "kid") {
-  //   notFound();
-  // }
 
   return (
     <div>
