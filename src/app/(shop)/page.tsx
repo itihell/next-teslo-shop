@@ -1,3 +1,5 @@
+export const revalidate = 60; // revalida pagina cada 60 segundos
+
 import { getPaginateProductsWithImages } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
 import { redirect } from "next/navigation";
