@@ -1,3 +1,5 @@
+export const revalidate = 10080; // 7 dias de validez
+
 import { getProductBySlug } from "@/actions";
 import {
   QuantitySelector,
