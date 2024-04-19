@@ -45,6 +45,10 @@ export default async function ProductoPage({ params }: Props) {
       {/* Detalles */}
       <div className="col-span-1 px-5 ">
         <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>
+          Stock: {product.inStock}
+        </h1>
+
+        <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>
           {product.title}
         </h1>
         <p className="text-lg mb-5">${product.price}</p>
