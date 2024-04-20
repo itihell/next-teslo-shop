@@ -1,11 +1,15 @@
+export const revalidate = 10080; // 7 dias de validez
+
+import { getProductBySlug } from "@/actions";
 import {
   QuantitySelector,
   SizeSelector,
   SlideShow,
   SlideShowMobil,
+  StockLabel,
 } from "@/components";
 import { titleFont } from "@/config/fonts";
-import { initialData } from "@/seed/seed";
+
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -13,9 +17,9 @@ interface Props {
     slug: string;
   };
 }
-export default function ProductoPage({ params }: Props) {
+export default async function ProductoPage({ params }: Props) {
   const { slug } = params;
-  const product = initialData.products.find((p) => p.slug === slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
@@ -25,14 +29,24 @@ export default function ProductoPage({ params }: Props) {
       {/* SlideShow */}
       <div className="col-span-1 md:col-span-2 ">
         {/* Mobil SlideShop */}
-        <SlideShowMobil title={product.title} images={product.images}  className="block md:hidden"/>
+        <SlideShowMobil
+          title={product.title}
+          images={product.images}
+          className="block md:hidden"
+        />
 
         {/* Desktop slideshow */}
-        <SlideShow title={product.title} images={product.images} className="hidden md:block" />
+        <SlideShow
+          title={product.title}
+          images={product.images}
+          className="hidden md:block"
+        />
       </div>
 
       {/* Detalles */}
       <div className="col-span-1 px-5 ">
+        <StockLabel slug={product.slug} />
+
         <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>
           {product.title}
         </h1>
