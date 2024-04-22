@@ -10,8 +10,7 @@ interface State {
   // TODO: Implementar la logica para guardar el carrito en el localstorage
   addProductToCart: (product: CartProduct) => void;
   updateProductQuantity: (product: CartProduct, quantity: number) => void;
-  // UpdateProductQuantity
-  // RemoveProductFromCart
+  removeProduct: (product: CartProduct) => void;
 }
 
 // Creando el store de zustand
@@ -63,6 +62,13 @@ export const useCartStore = create<State>()(
         });
 
         set({ cart: updateCartProduct });
+      },
+      removeProduct(product: CartProduct) {
+        const { cart } = get();
+        const newCart = cart.filter(
+          (item) => item.id !== product.id || item.size !== product.size
+        );
+        set({ cart: newCart });
       },
     }),
     {

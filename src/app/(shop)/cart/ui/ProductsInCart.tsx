@@ -10,6 +10,7 @@ export const ProductsInCart = () => {
   const updateProductQuantity = useCartStore(
     (state) => state.updateProductQuantity
   );
+  const removeProduct = useCartStore((state) => state.removeProduct);
   const [loaded, setLoaded] = useState<boolean>(false);
   const productsInCart = useCartStore((state) => state.cart);
 
@@ -42,7 +43,7 @@ export const ProductsInCart = () => {
               className="hover:underline cursor-pointer"
               href={`/product/${product.slug}`}
             >
-              {product.title}
+              {product.size} - {product.title}
             </Link>
 
             <p>${product.precio}</p>
@@ -53,7 +54,12 @@ export const ProductsInCart = () => {
               }
             />
 
-            <button className="underline mt-3">Remover</button>
+            <button
+              onClick={() => removeProduct(product)}
+              className="underline mt-3"
+            >
+              Remover
+            </button>
           </div>
         </div>
       ))}
