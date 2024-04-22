@@ -7,6 +7,9 @@ import { QuantitySelector } from "@/components";
 import Link from "next/link";
 
 export const ProductsInCart = () => {
+  const updateProductQuantity = useCartStore(
+    (state) => state.updateProductQuantity
+  );
   const [loaded, setLoaded] = useState<boolean>(false);
   const productsInCart = useCartStore((state) => state.cart);
 
@@ -44,8 +47,10 @@ export const ProductsInCart = () => {
 
             <p>${product.precio}</p>
             <QuantitySelector
-              quantity={3}
-              onQuantityChange={(value) => console.log}
+              quantity={product.quantity}
+              onQuantityChange={(quantity) =>
+                updateProductQuantity(product, quantity)
+              }
             />
 
             <button className="underline mt-3">Remover</button>

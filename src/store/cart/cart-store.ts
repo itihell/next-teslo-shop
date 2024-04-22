@@ -9,6 +9,7 @@ interface State {
 
   // TODO: Implementar la logica para guardar el carrito en el localstorage
   addProductToCart: (product: CartProduct) => void;
+  updateProductQuantity: (product: CartProduct, quantity: number) => void;
   // UpdateProductQuantity
   // RemoveProductFromCart
 }
@@ -44,6 +45,19 @@ export const useCartStore = create<State>()(
         const updateCartProduct = cart.map((item) => {
           if (item.id === product.id && item.size === product.size) {
             return { ...item, quantity: item.quantity + product.quantity };
+          }
+          return item;
+        });
+
+        set({ cart: updateCartProduct });
+      },
+
+      updateProductQuantity: (product: CartProduct, quantity: number) => {
+        const { cart } = get();
+
+        const updateCartProduct = cart.map((item) => {
+          if (item.id === product.id && item.size === product.size) {
+            return { ...item, quantity };
           }
           return item;
         });
