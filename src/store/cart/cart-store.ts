@@ -5,6 +5,8 @@ import { persist } from "zustand/middleware";
 interface State {
   cart: CartProduct[];
 
+  getTotalItems: () => number;
+
   // TODO: Implementar la logica para guardar el carrito en el localstorage
   addProductToCart: (product: CartProduct) => void;
   // UpdateProductQuantity
@@ -18,6 +20,13 @@ export const useCartStore = create<State>()(
       cart: [],
 
       // Metodos
+
+      // Obtener la cantidad total de productos en el carrito
+      getTotalItems: () => {
+        const { cart } = get();
+        return cart.reduce((acc, item) => acc + item.quantity, 0);
+      },
+
       addProductToCart: (product: CartProduct) => {
         const { cart } = get();
 
