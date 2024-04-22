@@ -1,11 +1,12 @@
-import { CartProducto } from "@/interfaces";
+import { CartProduct } from "@/interfaces";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface State {
-  cart: CartProducto[];
+  cart: CartProduct[];
 
   // TODO: Implementar la logica para guardar el carrito en el localstorage
-  addProductToCart: (product: CartProducto) => void;
+  addProductToCart: (product: CartProduct) => void;
   // UpdateProductQuantity
   // RemoveProductFromCart
 }
@@ -15,7 +16,7 @@ export const useCartStore = create<State>((set, get) => ({
   cart: [],
 
   // Metodos
-  addProductToCart: (product: CartProducto) => {
+  addProductToCart: (product: CartProduct) => {
     const { cart } = get();
 
     // Verificar si el producto ya esta en el carrito
