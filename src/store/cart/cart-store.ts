@@ -6,6 +6,12 @@ interface State {
   cart: CartProduct[];
 
   getTotalItems: () => number;
+  getSummaryInformation: () => {
+    itemsInCart: number;
+    subtotal: number;
+    tax: number;
+    total: number;
+  };
 
   // TODO: Implementar la logica para guardar el carrito en el localstorage
   addProductToCart: (product: CartProduct) => void;
@@ -25,6 +31,28 @@ export const useCartStore = create<State>()(
       getTotalItems: () => {
         const { cart } = get();
         return cart.reduce((acc, item) => acc + item.quantity, 0);
+      },
+
+      getSummaryInformation: () => {
+        const { cart } = get();
+
+        const itemsInCart = cart.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
+        const subtotal = cart.reduce(
+          (acc, item) => acc + item.precio * item.quantity,
+          0
+        );
+        const tax = subtotal * 0.15;
+        const total = subtotal + tax;
+
+        return {
+          itemsInCart,
+          subtotal,
+          tax,
+          total,
+        };
       },
 
       addProductToCart: (product: CartProduct) => {
