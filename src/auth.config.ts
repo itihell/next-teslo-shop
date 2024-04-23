@@ -20,7 +20,7 @@ export const authConfig: NextAuthConfig = {
 
         const { email, password } = parsedCredentials.data;
 
-        console.log(email, password);
+        console.log("authConfig", { email, password });
 
         //buscar el correo
         // comparar la contraseña
