@@ -21,11 +21,8 @@ export const authConfig: NextAuthConfig = {
 
         const { email, password } = parsedCredentials.data;
 
-        console.log("formulario");
-
         //buscar el correo
         const user = await prisma.user.findUnique({ where: { email } });
-        console.log("usuario");
         // Si no existe el usuario
         if (!user) return null;
         // comparar la contraseña
