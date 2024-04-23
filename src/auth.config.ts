@@ -1,4 +1,4 @@
-import type { NextAuthConfig } from "next-auth";
+import NextAuth, { type NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 
@@ -14,16 +14,23 @@ export const authConfig: NextAuthConfig = {
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
 
+        if (!parsedCredentials.success) {
+          return null;
+        }
 
-          if (!parsedCredentials.success) {
-            return null;
-          }
+        const { email, password } = parsedCredentials.data;
+
+        console.log(email, password);
 
         //buscar el correo
         // comparar la contraseña
+
+        // si todo esta bien regresar el usuario
 
         return null;
       },
     }),
   ],
 };
+
+export const { signIn, signOut, auth } = NextAuth(authConfig);
