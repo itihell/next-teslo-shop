@@ -10,8 +10,7 @@ export async function authenticate(
 ) {
   try {
     console.log("formData", formData);
-    console.log("formData", Object.fromEntries(formData));
-
+    //console.log("formData", Object.fromEntries(formData));
     await signIn("credentials", formData);
   } catch (error) {
     if (error instanceof AuthError) {
