@@ -20,6 +20,7 @@ export async function authenticate(
           return "Algo salió mal. Por favor intenta de nuevo.";
       }
     }
+
     throw error;
   }
 }

@@ -13,10 +13,15 @@ import {
   IoShirtOutline,
   IoTicketOutline,
 } from "react-icons/io5";
+import { useSession } from "next-auth/react";
 
 export const SideBar = () => {
   const isSideMenuOpen = useUiStore((state) => state.isSideMenuOpen);
   const closeMenu = useUiStore((state) => state.closeSideMenu);
+
+  const { data: session } = useSession();
+
+  console.log(session);
 
   return (
     <div>
@@ -77,7 +82,8 @@ export const SideBar = () => {
           <span className="ml-3 text-xl">Ordenes</span>
         </Link>
         <Link
-          href="/"
+          href="/auth/login"
+          onClick={() => closeMenu()}
           className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
         >
           <IoLogInOutline size={30} />

@@ -10,8 +10,6 @@ export default async function ShopLayout({
 
   if (session?.user) redirect("/");
 
-  console.log({ session });
-
   return (
     <main className="flex justify-center">
       <div className="w-full sm:w-[350px] px-10">{children}</div>
