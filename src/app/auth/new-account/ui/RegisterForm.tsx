@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 
 type FormInputs = {
@@ -10,13 +10,27 @@ type FormInputs = {
 };
 
 export const RegisterForm = () => {
-  const { register, handleSubmit } = useForm<FormInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>();
+
+  const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
+    const { email, name, password } = data;
+    console.log({ email, name, password });
+  };
   return (
-    <form className="flex flex-col">
+    <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+      {errors.name?.type === "required" && (
+        <span className="text-red-500">* El nombre es obligatorio *</span>
+      )}
+
       <label htmlFor="email">Nombre completo</label>
       <input
         className="px-5 py-2 border bg-gray-200 rounded mb-5"
         type="text"
+        autoFocus
         {...register("name", { required: true })}
       />
 
@@ -30,7 +44,7 @@ export const RegisterForm = () => {
       <label htmlFor="email">Contraseña</label>
       <input
         className="px-5 py-2 border bg-gray-200 rounded mb-5"
-        type="email"
+        type="password"
         {...register("password", { required: true, minLength: 6 })}
       />
 
