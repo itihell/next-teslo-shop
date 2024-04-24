@@ -1,5 +1,6 @@
 export * from "./auth/login";
 export * from "./auth/logout";
+export * from "./auth/register";
 
 export * from "./product/producto-pagination";
 export * from "./product/get-stock-by-slug";
