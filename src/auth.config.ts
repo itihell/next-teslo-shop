@@ -23,6 +23,28 @@ export const authConfig: NextAuthConfig = {
 
       return session;
     },
+
+    authorized({ auth, request: { nextUrl } }) {
+      //console.log({ auth });
+
+      const isLoggedIn = !!auth?.user;
+      //console.log({ parasm: nextUrl.searchParams });
+
+      const isOnDashboard = nextUrl.pathname.startsWith("/checkout");
+
+      if (isLoggedIn) return true;
+      return false;
+
+      //console.log({ isLoggedIn, isOnDashboard });
+
+      // if (isOnDashboard) {
+      //   if (isLoggedIn) return true;
+      //   return false; // Redirect unauthenticated users to login page
+      // } else if (isLoggedIn) {
+      //   return Response.redirect(new URL("/checkout", nextUrl));
+      // }
+      // return true;
+    },
   },
   providers: [
     Credentials({
@@ -51,4 +73,6 @@ export const authConfig: NextAuthConfig = {
   ],
 };
 
-export const { signIn, signOut, auth, handlers } = NextAuth(authConfig);
+export const { signIn, signOut, auth, handlers } = NextAuth({
+  ...authConfig,
+});

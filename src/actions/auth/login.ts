@@ -4,12 +4,17 @@ import { AuthError } from "next-auth";
 
 // ...
 
-export async function authenticate(
+export async function loginForm(
   prevState: string | undefined,
   formData: FormData
 ) {
   try {
-    await signIn("credentials", formData);
+    await signIn("credentials", {
+      ...Object.fromEntries(formData),
+      redirect: false,
+    });
+
+    return "Success";
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {

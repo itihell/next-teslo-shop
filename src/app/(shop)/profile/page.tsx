@@ -6,7 +6,7 @@ export default async function ProfilePage() {
   const session = await auth();
 
   //if (!session?.user) redirect("/auth/login?redirect=/perfil");
-  if (!session?.user) redirect("/");
+  //if (!session?.user) redirect("/");
   return (
     <div>
       <Title title="Perfil" />
@@ -18,7 +18,7 @@ export default async function ProfilePage() {
         }
       </pre>
 
-      <h3>{session.user.role}</h3>
+      <h3>{session?.user?.role}</h3>
     </div>
   );
 }
