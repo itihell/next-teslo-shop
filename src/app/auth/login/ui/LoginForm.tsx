@@ -1,15 +1,32 @@
 "use client";
 
-import { authenticate } from "@/actions";
+import { loginForm } from "@/actions";
 import clsx from "clsx";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+
 import { useFormState, useFormStatus } from "react-dom";
 import { IoInformationOutline } from "react-icons/io5";
 
 export const LoginForm = () => {
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-  console.log(errorMessage);
+  const [message, dispatch] = useFormState(loginForm, undefined);
 
+  const querysParams = useSearchParams();
+
+  console.log({ message });
+
+  useEffect(() => {
+    if (message === "Success") {
+      // redireccionar
+      // router.replace('/');
+      if (querysParams.get("callbackUrl")) {
+        const url = querysParams.get("callbackUrl") ?? "/";
+        console.log({ url });
+        window.location.replace(url);
+      }
+    }
+  }, [message]);
   return (
     <form action={dispatch} className="flex flex-col">
       <label htmlFor="email">Correo electrónico</label>
@@ -31,10 +48,10 @@ export const LoginForm = () => {
         aria-live="polite"
         aria-atomic="true"
       >
-        {errorMessage && (
+        {message && (
           <div className="flex flex-row mb-2">
             <IoInformationOutline className="h-5 w-5 text-red-500" />
-            <p className="text-sm text-red-500">{errorMessage}</p>
+            <p className="text-sm text-red-500">{message}</p>
           </div>
         )}
       </div>
