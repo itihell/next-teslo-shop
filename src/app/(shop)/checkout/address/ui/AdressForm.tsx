@@ -1,8 +1,27 @@
 "use client";
 
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+
+type FormInput = {
+  firstName: string;
+  lastName: string;
+  adress: string;
+  adress2: string;
+  postalCode: string;
+  city: string;
+  country: string;
+  phone: string;
+  rememberAdress: boolean;
+};
 
 export const AdressForm = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { isValid },
+  } = useForm<FormInput>();
+
   return (
     <div className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2">
       <div className="flex flex-col mb-2">
