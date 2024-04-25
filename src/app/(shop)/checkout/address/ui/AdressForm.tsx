@@ -1,6 +1,6 @@
 "use client";
 
-import { setUserAddress } from "@/actions";
+import { deleteUserAddress, setUserAddress } from "@/actions";
 import { Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import clsx from "clsx";
@@ -51,16 +51,17 @@ export const AdressForm = ({ countries }: Props) => {
 
   const onSubmit = async (data: FormInput) => {
     setAddress(data);
-    console.log(session?.user.id, data);
 
     const { rememberAddress, ...rest } = data;
 
     if (data.rememberAddress) {
-      console.log({ data });
       //TODO: Save address in database
       setUserAddress(rest, session!.user.id);
     } else {
       //TODO: Server action to save address
+      console.log("borrando");
+
+      deleteUserAddress(session!.user.id);
     }
   };
 
