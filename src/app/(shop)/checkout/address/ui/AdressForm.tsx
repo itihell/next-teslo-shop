@@ -21,41 +21,72 @@ export const AdressForm = () => {
     register,
     formState: { isValid },
   } = useForm<FormInput>({
-    defaultValues:{
+    defaultValues: {
       //TODO: Add default values of data base
-    }
+    },
   });
 
+  const onSubmit = async (data: FormInput) => {
+    console.log({ data });
+  };
+
   return (
-    <div className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2"
+    >
       <div className="flex flex-col mb-2">
         <span>Nombres</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" />
+        <input
+          type="text"
+          className="p-2 border rounded-md bg-gray-200"
+          {...register("firstName", { required: true })}
+        />
       </div>
 
       <div className="flex flex-col mb-2">
         <span>Apellidos</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" />
+        <input
+          type="text"
+          className="p-2 border rounded-md bg-gray-200"
+          {...register("lastName", { required: true })}
+        />
       </div>
 
       <div className="flex flex-col mb-2">
         <span>Dirección</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" />
+        <input
+          type="text"
+          className="p-2 border rounded-md bg-gray-200"
+          {...register("adress", { required: true })}
+        />
       </div>
 
       <div className="flex flex-col mb-2">
         <span>Dirección 2 (opcional)</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" />
+        <input
+          type="text"
+          className="p-2 border rounded-md bg-gray-200"
+          {...register("adress2")}
+        />
       </div>
 
       <div className="flex flex-col mb-2">
         <span>Código postal</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" />
+        <input
+          type="text"
+          className="p-2 border rounded-md bg-gray-200"
+          {...register("postalCode", { required: true })}
+        />
       </div>
 
       <div className="flex flex-col mb-2">
         <span>Ciudad</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" />
+        <input
+          type="text"
+          className="p-2 border rounded-md bg-gray-200"
+          {...register("country", { required: true })}
+        />
       </div>
 
       <div className="flex flex-col mb-2">
@@ -68,7 +99,11 @@ export const AdressForm = () => {
 
       <div className="flex flex-col mb-2">
         <span>Teléfono</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" />
+        <input
+          type="text"
+          className="p-2 border rounded-md bg-gray-200"
+          {...register("phone", { required: true })}
+        />
       </div>
 
       <div className="flex flex-col mb-2 sm:mt-1">
@@ -112,6 +147,6 @@ export const AdressForm = () => {
           Siguiente
         </Link>
       </div>
-    </div>
+    </form>
   );
 };
