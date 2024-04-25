@@ -1,20 +1,21 @@
 "use client";
 
 import { Country } from "@/interfaces";
+import { useAddressStore } from "@/store";
 import clsx from "clsx";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { countries } from "../../../../../seed/seed-countries";
 
 type FormInput = {
   firstName: string;
   lastName: string;
-  adress: string;
-  adress2: string;
+  address: string;
+  address2?: string;
   postalCode: string;
   city: string;
   country: string;
   phone: string;
-  rememberAdress: boolean;
+  rememberAddress: boolean;
 };
 
 interface Props {
@@ -26,14 +27,26 @@ export const AdressForm = ({ countries }: Props) => {
     handleSubmit,
     register,
     formState: { isValid },
+    reset,
   } = useForm<FormInput>({
     defaultValues: {
       //TODO: Add default values of data base
     },
   });
 
+  const setAddress = useAddressStore((state) => state.setAddress);
+  const address = useAddressStore((state) => state.address);
+
+  useEffect(() => {
+    if (address.firstName) {
+      reset(address);
+    }
+  }, []);
+
   const onSubmit = async (data: FormInput) => {
     console.log({ data });
+
+    setAddress(data);
   };
 
   return (

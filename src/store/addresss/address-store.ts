@@ -6,15 +6,16 @@ interface state {
     firstName: string;
     lastName: string;
     address: string;
-    address2: string;
+    address2?: string;
     postalCode: string;
+    city: string;
     country: string;
     phone: string;
   };
 
   setAddress: (address: state["address"]) => void;
 }
-export const addressStore = create<state>()(
+export const useAddressStore = create<state>()(
   persist(
     (set, get) => ({
       address: {
@@ -23,10 +24,13 @@ export const addressStore = create<state>()(
         address: "",
         address2: "",
         postalCode: "",
+        city: "",
         country: "",
         phone: "",
       },
-      setAddress: (address) => set({ address }),
+      setAddress: (address) => {
+        set({ address });
+      },
     }),
     {
       name: "address-storage",
