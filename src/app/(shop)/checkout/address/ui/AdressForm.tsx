@@ -5,6 +5,7 @@ import { Address, Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -26,6 +27,7 @@ interface Props {
 }
 
 export const AdressForm = ({ countries, userStoredAddress = {} }: Props) => {
+  const route = useRouter();
   const {
     handleSubmit,
     register,
@@ -57,14 +59,12 @@ export const AdressForm = ({ countries, userStoredAddress = {} }: Props) => {
     const { rememberAddress, ...rest } = data;
 
     if (data.rememberAddress) {
-      //TODO: Save address in database
-      setUserAddress(rest, session!.user.id);
+      await setUserAddress(rest, session!.user.id);
     } else {
-      //TODO: Server action to save address
-      console.log("borrando");
-
-      deleteUserAddress(session!.user.id);
+      await deleteUserAddress(session!.user.id);
     }
+
+    route.push("/checkout");
   };
 
   return (
