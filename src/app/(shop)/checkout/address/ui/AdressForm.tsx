@@ -1,8 +1,10 @@
 "use client";
 
+import { setUserAddress } from "@/actions";
 import { Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -34,6 +36,10 @@ export const AdressForm = ({ countries }: Props) => {
     },
   });
 
+  const { data: session } = useSession({
+    required: true,
+  });
+
   const setAddress = useAddressStore((state) => state.setAddress);
   const address = useAddressStore((state) => state.address);
 
@@ -44,9 +50,18 @@ export const AdressForm = ({ countries }: Props) => {
   }, []);
 
   const onSubmit = async (data: FormInput) => {
-    console.log({ data });
-
     setAddress(data);
+    console.log(session?.user.id, data);
+
+    const { rememberAddress, ...rest } = data;
+
+    if (data.rememberAddress) {
+      console.log({ data });
+      //TODO: Save address in database
+      setUserAddress(rest, session!.user.id);
+    } else {
+      //TODO: Server action to save address
+    }
   };
 
   return (
@@ -77,7 +92,7 @@ export const AdressForm = ({ countries }: Props) => {
         <input
           type="text"
           className="p-2 border rounded-md bg-gray-200"
-          {...register("adress", { required: true })}
+          {...register("address", { required: true })}
         />
       </div>
 
@@ -86,7 +101,7 @@ export const AdressForm = ({ countries }: Props) => {
         <input
           type="text"
           className="p-2 border rounded-md bg-gray-200"
-          {...register("adress2")}
+          {...register("address2")}
         />
       </div>
 
@@ -116,7 +131,7 @@ export const AdressForm = ({ countries }: Props) => {
         >
           <option value="">[ Seleccione ]</option>
           {countries.map((country) => (
-            <option key={country.id} value={country.name}>
+            <option key={country.id} value={country.id}>
               {country.name}
             </option>
           ))}
@@ -143,7 +158,7 @@ export const AdressForm = ({ countries }: Props) => {
           >
             <input
               type="checkbox"
-              {...register("rememberAdress")}
+              {...register("rememberAddress")}
               className="border-gray-500 before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
               id="checkbox"
             />
