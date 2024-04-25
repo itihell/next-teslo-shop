@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { useForm } from "react-hook-form";
 
 type FormInput = {
@@ -145,7 +146,11 @@ export const AdressForm = () => {
 
         <button
           type="submit"
-          className="btn-primary flex w-full sm:w-1/2 justify-center "
+          disabled={!isValid}
+          className={clsx("flex w-full sm:w-1/2 justify-center ", {
+            "btn-primary text-white": isValid,
+            "btn-disabled text-red-500": !isValid,
+          })}
         >
           Siguiente
         </button>
