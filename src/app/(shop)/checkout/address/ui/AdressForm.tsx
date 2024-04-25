@@ -20,7 +20,11 @@ export const AdressForm = () => {
     handleSubmit,
     register,
     formState: { isValid },
-  } = useForm<FormInput>();
+  } = useForm<FormInput>({
+    defaultValues:{
+      //TODO: Add default values of data base
+    }
+  });
 
   return (
     <div className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2">
