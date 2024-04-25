@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 type FormInput = {
@@ -85,13 +84,16 @@ export const AdressForm = () => {
         <input
           type="text"
           className="p-2 border rounded-md bg-gray-200"
-          {...register("country", { required: true })}
+          {...register("city", { required: true })}
         />
       </div>
 
       <div className="flex flex-col mb-2">
         <span>País</span>
-        <select className="p-2 border rounded-md bg-gray-200">
+        <select
+          className="p-2 border rounded-md bg-gray-200"
+          {...register("country", { required: true })}
+        >
           <option value="">[ Seleccione ]</option>
           <option value="CRI">Costa Rica</option>
         </select>
@@ -116,6 +118,7 @@ export const AdressForm = () => {
           >
             <input
               type="checkbox"
+              {...register("rememberAdress")}
               className="border-gray-500 before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
               id="checkbox"
             />
@@ -140,12 +143,12 @@ export const AdressForm = () => {
           <span>Recordar dirección....?</span>
         </div>
 
-        <Link
-          href="/checkout"
+        <button
+          type="submit"
           className="btn-primary flex w-full sm:w-1/2 justify-center "
         >
           Siguiente
-        </Link>
+        </button>
       </div>
     </form>
   );
